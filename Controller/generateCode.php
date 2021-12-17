@@ -2,7 +2,7 @@
 
 	include "../DB/Config.php";
 	include "TokenCore.php";
-
+	include "ShiftCore.php";
 
 	$tokenCore = new TokenCore();
 	$list = $tokenCore->getAllTokens();
@@ -31,9 +31,17 @@
 	echo $final;
 
 
-
-	$tokenCore->addToken($final,1);
-
+	$shiftC = new ShiftCore();
+	$list = $shiftC->getCurrentShift();
+	if(count($list)==0)
+	{
+		echo "ERROR, No current shift";
+	}
+	else
+	{
+		$tokenCore->addToken($final,$list[0]->id);
+	}
+	
 
 
 ?>
